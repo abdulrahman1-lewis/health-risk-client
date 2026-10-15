@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Health Insurance, Inc. | Health Risk Check</title>
+  <meta name="description" content="Answer a few simple questions to get a health risk assessment for health insurance coverage.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div>
+        <p class="brand">Health Insurance, Inc.</p>
+        <h1>Health risk check</h1>
+        <p class="lede">Answer the four short sections below. It takes about two minutes, and you don't need any medical training. Every question has an example or a hint to help you.</p>
+      </div>
+      <p id="server-status" class="status status-waiting" role="status" aria-live="polite">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="server-status-text">Connecting to the server&hellip;</span>
+      </p>
+    </div>
+  </header>
+
+  <main class="wrap layout">
+    <form id="risk-form" class="form" novalidate>
+
+      <fieldset class="section">
+        <legend><span class="step">1</span> About you</legend>
+        <div class="field">
+          <label for="age">Your age in years</label>
+          <input id="age" name="age" type="number" inputmode="numeric" min="18" max="120" step="1" placeholder="For example: 42" autocomplete="off">
+          <p class="hint">Whole years only. You must be 18 or older.</p>
+          <p class="error" id="err-age" aria-live="polite"></p>
+        </div>
+      </fieldset>
+
+      <fieldset class="section">
+        <legend><span class="step">2</span> Height and weight</legend>
+        <p class="hint section-hint">We use these to work out your body-mass index (BMI). Use feet, inches and pounds.</p>
+        <div class="row">
+          <div class="field">
+            <label for="feet">Height: feet</label>
+            <select id="feet" name="feet"></select>
+            <p class="error" id="err-feet" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="inches">Height: inches</label>
+            <select id="inches" name="inches"></select>
+            <p class="error" id="err-inches" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="pounds">Weight in pounds</label>
+            <input id="pounds" name="pounds" type="number" inputmode="numeric" min="50" max="700" step="1" placeholder="For example: 165" autocomplete="off">
+            <p class="error" id="err-pounds" aria-live="polite"></p>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="section">
+        <legend><span class="step">3</span> Blood pressure</legend>
+        <p class="hint section-hint">Blood pressure is two numbers, like &ldquo;118 over 76&rdquo;. The top number is <strong>systolic</strong> and the bottom number is <strong>diastolic</strong>. You can find both on a recent blood pressure reading or doctor's visit summary. Use the chart to see what the numbers mean.</p>
+
+        <div class="table-scroll">
+          <table class="bp-chart" id="bp-chart">
+            <caption>Blood pressure categories (based on American Heart Association guidance)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Systolic (upper number)</th>
+                <th scope="col"><span class="visually-hidden">and / or</span></th>
+                <th scope="col">Diastolic (lower number)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-bp="normal" class="bp-normal">
+                <th scope="row">Normal</th>
+                <td>Less than 120</td><td>and</td><td>Less than 80</td>
+              </tr>
+              <tr data-bp="elevated" class="bp-elevated">
+                <th scope="row">Elevated</th>
+                <td>120 &ndash; 129</td><td>and</td><td>Less than 80</td>
+              </tr>
+              <tr data-bp="stage1" class="bp-stage1">
+                <th scope="row">High blood pressure (Hypertension) Stage 1</th>
+                <td>130 &ndash; 139</td><td>or</td><td>80 &ndash; 89</td>
+              </tr>
+              <tr data-bp="stage2" class="bp-stage2">
+                <th scope="row">High blood pressure (Hypertension) Stage 2</th>
+                <td>140 or higher</td><td>or</td><td>90 or higher</td>
+              </tr>
+              <tr data-bp="crisis" class="bp-crisis">
+                <th scope="row">Hypertensive crisis<br><small>Consult your doctor immediately</small></th>
+                <td>Higher than 180</td><td>and/or</td><td>Higher than 120</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="systolic">Systolic (upper number)</label>
+            <select id="systolic" name="systolic"></select>
+            <p class="error" id="err-systolic" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="diastolic">Diastolic (lower number)</label>
+            <select id="diastolic" name="diastolic"></select>
+            <p class="error" id="err-diastolic" aria-live="polite"></p>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="section">
+        <legend><span class="step">4</span> Family history</legend>
+        <p class="hint section-hint">Has a close blood relative (parent, brother or sister) ever had any of these? Tick all that apply, or leave all of them blank if none apply.</p>
+        <div class="checks">
+          <label class="check"><input type="checkbox" id="diabetes" name="diabetes"> <span>Diabetes</span></label>
+          <label class="check"><input type="checkbox" id="cancer" name="cancer"> <span>Cancer</span></label>
+          <label class="check"><input type="checkbox" id="alzheimers" name="alzheimers"> <span>Alzheimer's disease</span></label>
+        </div>
+      </fieldset>
+
+      <p class="form-error" id="form-error" role="alert"></p>
+
+      <div class="actions">
+        <button type="submit" id="submit-btn" class="btn btn-primary">Get my risk assessment</button>
+        <button type="button" id="clear-btn" class="btn btn-quiet">Clear the form</button>
+      </div>
+    </form>
+
+    <aside class="results" aria-labelledby="results-title">
+      <h2 id="results-title">Your assessment</h2>
+
+      <div id="results-empty" class="results-empty">
+        <p>Your result will appear here after you fill in the form and choose <strong>Get my risk assessment</strong>.</p>
+      </div>
+
+      <section id="result-card" class="result-card" hidden tabindex="-1" aria-live="polite">
+        <p class="risk-badge" id="risk-badge"></p>
+        <p class="risk-score" id="risk-score"></p>
+
+        <h3>What you told us</h3>
+        <dl class="summary" id="summary"></dl>
+
+        <button type="button" id="another-btn" class="btn btn-primary">Evaluate another person</button>
+      </section>
+
+      <section id="history-wrap" class="history" hidden>
+        <h3>Earlier results this visit</h3>
+        <ol id="history"></ol>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>This tool gives an insurance risk estimate only. It is not medical advice. If you are worried about your health, talk to your doctor.</p>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
