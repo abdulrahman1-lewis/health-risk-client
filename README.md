@@ -70,7 +70,7 @@ If you run the API locally on port 3000, the client will be served on a differen
 | Role | Name |
 |------|------|
 | Scrum Master | _add name_ |
-| Product Owner | _add name_ |
+| Product Owner | Abdul Rahman |
 | Developers | abdulrahman1-lewis, _add teammate_ |
 
 Course: CPSC 44000, Lewis University, Sprint 4.
