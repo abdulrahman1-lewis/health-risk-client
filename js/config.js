@@ -4,4 +4,4 @@
 //
 // For local testing, run the API on your computer and use:
 // "http://localhost:3000"
-window.API_BASE_URL = "http://localhost:3000";
+window.API_BASE_URL = "https://abdul-health-risk-api-acgydsg0hte7g9aj.westus3-01.azurewebsites.net";
